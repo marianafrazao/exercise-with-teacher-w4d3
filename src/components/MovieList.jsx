@@ -1,37 +1,27 @@
-import { useState } from 'react';
-import movies from "../data/movies.json";
-import Movie from './Movie';
+import Movie from "./Movie";
 
-function MovieList(){
+function MovieList(props) {
 
-    const [moviesToDisplay, setMoviesToDisplay] = useState(movies);
+  const deleteMovie = (movieId) => {
+    const newArray = props.moviesToDisplay.filter((movieObj) => {
+      if (movieObj.id === movieId) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    props.setMoviesToDisplay(newArray);
+  };
 
-    const deleteMovie = (movieId) => {
-        const newArray = moviesToDisplay.filter( movieObj => {
-            if (movieObj.id === movieId){
-                return false;
-            } else {
-                return true;
-            }
-        });
-        setMoviesToDisplay(newArray);
-    }
+  return (
+    <section className="MovieList">
+      <h1>List of movies:</h1>
 
-    return (
-        <section className="MovieList">
-
-            <h2>We currently have {moviesToDisplay.length} movies available</h2>
-
-        <h1>List of movies:</h1>
-
-        {moviesToDisplay.map((movieObj) => {
-            return (
-                <Movie movieDetails={movieObj} callbackToDelete={deleteMovie}/>
-            )
-        })}
-
-        </section>
-    )
+      {props.moviesToDisplay.map((movieObj) => {
+        return <Movie movieDetails={movieObj} callbackToDelete={deleteMovie} />;
+      })}
+    </section>
+  );
 }
 
 export default MovieList;
