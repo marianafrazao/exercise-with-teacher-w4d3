@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import movies from "../data/movies.json";
+import Movie from './Movie';
 
 function MovieList(){
 
@@ -25,16 +26,7 @@ function MovieList(){
 
         {moviesToDisplay.map((movieObj) => {
             return (
-            <div key={movieObj.id} className="card">
-                <img src={movieObj.imgURL} />
-                <h3>{movieObj.title}</h3>
-                <p>Year: {movieObj.year}</p>
-                <p>Rating: {movieObj.rating}</p>
-
-                <p>
-                    <button onClick={() => {deleteMovie(movieObj.id)}}>Delete this movie</button>
-                </p>
-            </div>
+                <Movie movieDetails={movieObj} callbackToDelete={deleteMovie}/>
             )
         })}
 
